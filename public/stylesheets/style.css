@@ -84,11 +84,11 @@ input{
     .form-row.card-num > label{
       width: 85%;
     }
-  .form-row.card-cvc{
+  .form-row.card-cvv{
     float: right;
     width: 60px;
   }
-    .form-row.card-cvc > label{
+    .form-row.card-cvv > label{
       width: 100%;
     }
 

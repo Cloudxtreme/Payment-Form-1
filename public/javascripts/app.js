@@ -44,14 +44,14 @@ function makeResObj($form){
 
   var cardNum = $form.find('#num').val().removeWhiteSpace();
   var cardExp = $form.find('#expiry').val().removeWhiteSpace();
-  var cardCvc = $form.find('#cvc').val().removeWhiteSpace();
+  var cardCvc = $form.find('#cvv').val().removeWhiteSpace();
 
   var curTime = new Date().getTime();
 
   var obj = {
     number: cardNum,
     expiry: cardExp,
-    cvc: cardCvc,
+    cvv: cardCvc,
     tSent: curTime
   };
 
@@ -83,7 +83,7 @@ function renderSuccess($form, message){
 
   $form.find('#num').val('');
   $form.find('#expiry').val('');
-  $form.find('#cvc').val('');
+  $form.find('#cvv').val('');
   $form.find('button').prop('disabled', false);
 
 
