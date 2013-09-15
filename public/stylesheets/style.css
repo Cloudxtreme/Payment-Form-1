@@ -224,10 +224,10 @@ form:first-child{
   font-weight: bold;
   color: white;
   text-align: center;
-  animation: fadeIn .5s;
-  -moz-animation: fadeIn .5s; /* Firefox */
-  -webkit-animation: fadeIn .5s; /* Safari and Chrome */
-  -o-animation: fadeIn .5s; /* Opera */
+  animation: fadeIn 1s;
+  -moz-animation: fadeIn 1s; /* Firefox */
+  -webkit-animation: fadeIn 1s; /* Safari and Chrome */
+  -o-animation: fadeIn 1s; /* Opera */
 }
 
   #card-message.error{
