@@ -42,9 +42,9 @@ function makeResObj($form){
   // For the sake of brevity I will not do this.
 
 
-  var cardNum = $form.find('#num').val();
-  var cardExp = $form.find('#expiry').val();
-  var cardCvc = $form.find('#cvc').val();
+  var cardNum = $form.find('#num').val().removeWhiteSpace();
+  var cardExp = $form.find('#expiry').val().removeWhiteSpace();
+  var cardCvc = $form.find('#cvc').val().removeWhiteSpace();
 
   var curTime = new Date().getTime();
 
@@ -89,8 +89,10 @@ function renderSuccess($form, message){
 
 }
 
-
-
+//helper function to remove all whitespace from any of the input strings
+String.prototype.removeWhiteSpace = function() {
+    return this.replace(/\s/g, '');
+};
 
 ///
 // validation formula

@@ -155,8 +155,7 @@ form:first-child{
 
 .btn{
   border: none;
-  background: #bdc3c7;
-  color: #ffffff;
+  color: #FFFFFF;
   padding: 9px 12px 10px;
   line-height: 22px;
   text-decoration: none;
@@ -180,7 +179,7 @@ form:first-child{
   font-size: 17px;
   display: block;
   height: 42px;
-  background: rgb(93, 173, 240);
+  background: #33ABFC;
 }
 
 .btn[disabled]{
@@ -189,19 +188,18 @@ form:first-child{
   -khtml-opacity: 0.40;
   -moz-opacity: 0.40;
   opacity: 0.40;
-  cursor: not-allowed;
+  cursor: progress;
   box-shadow: none;
 }
 
 .btn:hover,
 .btn:focus {
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#1a000000',GradientType=0);
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), color-stop(40%, rgba(0,0,0, 0.05)), to(rgba(0,0,0, 0.10)));
-    background-image: -webkit-linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.10));
-    background-image: -moz-linear-gradient(top, rgba(0,0,0, 0.05) 0%, rgba(0,0,0, 0.10));
-    background-image: -ms-linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.10));
-    background-image: -o-linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.10));
-    background-image: linear-gradient(transparent, rgba(0,0,0, 0.05) 40%, rgba(0,0,0, 0.10));
+    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(transparent), color-stop(100%, rgba(0,0,0, 0.05)), to(rgba(0,0,0, 0.75)));
+    background-image: -webkit-linear-gradient(transparent, rgba(0,0,0, 0.05) 100%, rgba(0,0,0, 0.75));
+    background-image: -moz-linear-gradient(top, rgba(0,0,0, 0.05) 0%, rgba(0,0,0, 0.75));
+    background-image: -ms-linear-gradient(transparent, rgba(0,0,0, 0.05) 100%, rgba(0,0,0, 0.75));
+    background-image: -o-linear-gradient(transparent, rgba(0,0,0, 0.05) 100%, rgba(0,0,0, 0.75));
+    background-image: linear-gradient(transparent, rgba(0,0,0, 0.05) 100%, rgba(0,0,0, 0.75));
 }
 
 
@@ -226,13 +224,17 @@ form:first-child{
   font-weight: bold;
   color: white;
   text-align: center;
+  animation: fadeIn .5s;
+  -moz-animation: fadeIn .5s; /* Firefox */
+  -webkit-animation: fadeIn .5s; /* Safari and Chrome */
+  -o-animation: fadeIn .5s; /* Opera */
 }
 
   #card-message.error{
-    background: rgb(255, 107, 107);
+    background: #E74C3C;
   }
   #card-message.success{
-    background: rgb(101, 208, 99);
+    background: #2ECC71;
   }
 
 #card-message:before{
@@ -245,12 +247,51 @@ form:first-child{
   position: absolute;
 }
   #card-message.error:before{
-    border-color: rgb(255, 107, 107) transparent;
+    border-color: #E74C3C transparent;
   }
   #card-message.success:before{
-    border-color: rgb(101, 208, 99) transparent;
+    border-color: #2ECC71 transparent;
   }
 
+
+
+
+
+/*
+  ANIMATION KEYFRAMES
+*/
+@keyframes fadeIn {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-moz-keyframes fadeIn {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-webkit-keyframes fadeIn{
+    from {
+        opacity:0;
+    }
+    to {
+        opacity:1;
+    }
+}
+@-o-keyframes fadeIn {
+    from {
+        opacity:0;
+    }
+    to {
+        opacity: 1;
+    }
+}​
 
 
 
