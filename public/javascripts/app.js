@@ -12,11 +12,8 @@ $(document).ready(function(){
 
     var resObj = makeResObj($form);
 
-    if(validateCardNum(resObj.number)){
+    if(isCardValid($form, resObj)){
       submitPayment($form, resObj);
-    }
-    else{
-      renderError($form, "Invalid Card Number!");
     }
 
   });
@@ -31,6 +28,22 @@ function submitPayment($form, obj){
   });
 }
 
+function isCardValid($form, card){
+  var validCardNum = validateCardNum(card.number.toString());
+  var validExpiry = validateCardExp(card.expMonth, card.expYear);
+
+  if(!validCardNum){
+    renderError($form, "Invalid Card Number");
+    return false;
+  }
+
+  if(!validExpiry){
+    renderError($form, "Invalid Expiry");
+    return false;
+  }
+  return true;
+}
+
 // Prepares a javascript object to be sent as a response
 function makeResObj($form){
 
@@ -42,26 +55,29 @@ function makeResObj($form){
   // For the sake of brevity I will not do this.
 
 
-  var cardNum = $form.find('#num').val().removeWhiteSpace();
+  var cardNum = parseInt( $form.find('#num').val().removeWhiteSpace() );
   var cardExp = $form.find('#expiry').val().removeWhiteSpace();
-  var cardCvc = $form.find('#cvv').val().removeWhiteSpace();
-
+  var cardCvc = parseInt( $form.find('#cvv').val().removeWhiteSpace() );
   var curTime = new Date().getTime();
+
+
+  //parse year and month from expiry string
+
+  var slashInd = cardExp.indexOf('/');
+  var expMonth = parseInt(cardExp.substr(0, slashInd));
+  var expYear = parseInt(cardExp.substr(slashInd +1 , (cardExp.length-1) ) );
+
 
   var obj = {
     number: cardNum,
-    expiry: cardExp,
+    expMonth: expMonth,
+    expYear: expYear,
     cvv: cardCvc,
     tSent: curTime
   };
 
   return obj;
 }
-
-//
-//returns truthy if all of the fields in the credit card form are valid
-// a lot of this stuff is han
-//
 
 // render error message
 function renderError($form, message){
@@ -78,21 +94,51 @@ function renderSuccess($form, message){
   $form.find('#card-message').removeClass('hidden').removeClass('error').addClass('success');
   $form.find('#message-text').text(succMessage).removeClass('msg-success').addClass('msg-success');
 
-
   //empty all of the input fields so the same info is not resubmited
 
   $form.find('#num').val('');
   $form.find('#expiry').val('');
   $form.find('#cvv').val('');
   $form.find('button').prop('disabled', false);
-
-
 }
+
 
 //helper function to remove all whitespace from any of the input strings
 String.prototype.removeWhiteSpace = function() {
     return this.replace(/\s/g, '');
 };
+
+
+function validateCardExp(expMonth, expYear){
+  var validMonth = isMonthValid(expMonth);
+  var validYear = isYearValid(expYear);
+  var dateInFuture = isExpDateInFuture(expMonth, expYear);
+  return (validMonth && validYear && dateInFuture);
+}
+
+
+
+function isMonthValid(month){
+  return (month > 0 && month < 13)
+}
+
+function isYearValid(year){
+  var maxYearDiff = 20;
+  var curYear = new Date().getFullYear()+"";
+  curYear = parseInt( curYear.match(/\d{2}$/) );
+  return (year >= curYear && year < curYear + maxYearDiff);
+}
+
+function isExpDateInFuture(month, year){
+  var curYear = new Date().getFullYear()+"";
+  curYear = parseInt( curYear.match(/\d{2}$/) );
+  // check month if year is the same as current year
+  if(year === curYear){
+    var curMonth = newDate.getMonth()+1;
+    return (month > curMonth);
+  }
+  return true;
+}
 
 ///
 // validation formula
