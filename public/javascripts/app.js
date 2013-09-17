@@ -1,8 +1,8 @@
-$(document).ready(function(){
+$(document).ready( function(){
 
-  $('#cardForm').submit(function(e){
+  $('#cardForm').submit( function(e){
     e.preventDefault();
-    $form = $(this);
+    var $form = $(this);
 
     //disable button for submittion
     $form.find('button').prop('disabled', true);
@@ -11,8 +11,7 @@ $(document).ready(function(){
     $form.find('#card-message').addClass('hidden');
 
     var resObj = makeResObj($form);
-
-    if(isCardValid($form, resObj)){
+    if( isCardValid($form, resObj) ){
       submitPayment($form, resObj);
     }
 
@@ -23,22 +22,21 @@ $(document).ready(function(){
 //sends ajax request to the server to process the card payment object
 function submitPayment($form, obj){
   $.post('/submit', obj, function(res){
-      console.log(res);
       renderSuccess($form, res.message);
   });
 }
 
 function isCardValid($form, card){
-  var validCardNum = validateCardNum(card.number.toString());
+  var validCardNum = validateCardNum( card.number.toString() );
   var validExpiry = validateCardExp(card.expMonth, card.expYear);
 
   if(!validCardNum){
-    renderError($form, "Invalid Card Number");
+    renderError($form, "Invalid Card Number!");
     return false;
   }
 
   if(!validExpiry){
-    renderError($form, "Invalid Expiry");
+    renderError($form, "Invalid Expiration Date!");
     return false;
   }
   return true;
@@ -55,17 +53,17 @@ function makeResObj($form){
   // For the sake of brevity I will not do this.
 
 
-  var cardNum = parseInt( $form.find('#num').val().removeWhiteSpace() );
+  var cardNum = parseInt( $form.find('#num').val().removeWhiteSpace(), 10 );
   var cardExp = $form.find('#expiry').val().removeWhiteSpace();
-  var cardCvc = parseInt( $form.find('#cvv').val().removeWhiteSpace() );
+  var cardCvc = parseInt( $form.find('#cvv').val().removeWhiteSpace(), 10 );
   var curTime = new Date().getTime();
 
 
   //parse year and month from expiry string
 
   var slashInd = cardExp.indexOf('/');
-  var expMonth = parseInt(cardExp.substr(0, slashInd));
-  var expYear = parseInt(cardExp.substr(slashInd +1 , (cardExp.length-1) ) );
+  var expMonth = parseInt( cardExp.substr(0, slashInd), 10 );
+  var expYear = parseInt(cardExp.substr(slashInd +1 , (cardExp.length-1) ), 10 );
 
 
   var obj = {
@@ -81,7 +79,7 @@ function makeResObj($form){
 
 // render error message
 function renderError($form, message){
-  var errMessage = message || "Transaction Failed!"
+  var errMessage = message || "Transaction Failed!";
   $form.find('#card-message').removeClass('hidden').removeClass('success').addClass('error');
 
   $form.find('#message-text').text(errMessage).removeClass('msg-success').addClass('msg-error');
@@ -90,7 +88,7 @@ function renderError($form, message){
 
 // render success message
 function renderSuccess($form, message){
-  var succMessage = message || "Transaction Succeeded!"
+  var succMessage = message || "Transaction Succeeded!";
   $form.find('#card-message').removeClass('hidden').removeClass('error').addClass('success');
   $form.find('#message-text').text(succMessage).removeClass('msg-success').addClass('msg-success');
 
@@ -119,22 +117,22 @@ function validateCardExp(expMonth, expYear){
 
 
 function isMonthValid(month){
-  return (month > 0 && month < 13)
+  return (month > 0 && month < 13);
 }
 
 function isYearValid(year){
   var maxYearDiff = 20;
   var curYear = new Date().getFullYear()+"";
-  curYear = parseInt( curYear.match(/\d{2}$/) );
+  curYear = parseInt( curYear.match(/\d{2}$/), 10);
   return (year >= curYear && year < curYear + maxYearDiff);
 }
 
 function isExpDateInFuture(month, year){
   var curYear = new Date().getFullYear()+"";
-  curYear = parseInt( curYear.match(/\d{2}$/) );
+  curYear = parseInt( curYear.match(/\d{2}$/), 10);
   // check month if year is the same as current year
   if(year === curYear){
-    var curMonth = newDate.getMonth()+1;
+    var curMonth = new Date().getMonth()+1;
     return (month > curMonth);
   }
   return true;
@@ -146,9 +144,9 @@ function isExpDateInFuture(month, year){
 ///http://web.archive.org/web/20100129174150/http://javascript.internet.com/forms/credit-card-number-validation.html?
 
 function validateCardNum(ccNumb) {  // v2.0
-var valid = "0123456789"  // Valid digits in a credit card number
+var valid = "0123456789";  // Valid digits in a credit card number
 var len = ccNumb.length;  // The length of the submitted cc number
-var iCCN = parseInt(ccNumb);  // integer of ccNumb
+var iCCN = parseInt(ccNumb, 10);  // integer of ccNumb
 var sCCN = ccNumb.toString();  // string of ccNumb
 sCCN = sCCN.replace (/^\s+|\s+$/g,'');  // strip spaces
 var iTotal = 0;  // integer total set at zero
