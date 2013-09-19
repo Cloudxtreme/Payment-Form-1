@@ -6,8 +6,16 @@ I made use of HTML5's form validation paramaters as the first layer of user-feed
 
 Upon form submission the card number is then checked using the LUHN formula. If this test passes the card data is aggretaed into a single JSON document and is sent via a POST AJAX request to the server. Ideally this data would be encrypted on the client but such a task is beyond the scope of this project.
 
-On the server the card information would be securely checked and the transaction would occur. A JSON response object is then sent back to the client. In this demo a "success" message is always sent if the client validations pass. A success message is then displayed to the client. 
+On the server the card information would be securely checked and the transaction would occur. A JSON response object is then sent back to the client. In this demo a "success" message is always sent if the client validations pass. A success message is then displayed to the client.
 
+Running the Application
+---
+
+* Run 'bundle install' to retrieve all required gems
+
+* Start the server ruby 'ruby app.rb '
+
+* Navigate to localhost:4567
 
 Testing
 ----
@@ -24,5 +32,5 @@ I would recommend using one of the following valid card numbers for testing purp
 ---------
 
 
-##### LUHN Algorithm Code Source: 
+##### LUHN Algorithm Code Source:
 http://web.archive.org/web/20100129174150/http://javascript.internet.com/forms/credit-card-number-validation.html?
