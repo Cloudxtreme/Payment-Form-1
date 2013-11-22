@@ -17,7 +17,6 @@ Running the Application
 
 * Navigate to localhost:4567
 
-* alternatively you can also navigate to http://braintreeform.herokuapp.com
 Testing
 ----
 
